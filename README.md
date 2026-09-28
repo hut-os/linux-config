@@ -37,3 +37,24 @@ hut-os/kernel/arch/x86/boot/bzImage
 ## License
 
 Configuration files follow Linux kernel licensing (GPL-2.0).
+
+## HUTOS Scheduler enhancement
+
+Patch: [`patches/0001-sched-add-HUTOS-run-queue-wait-latency-monitor.patch`](patches/0001-sched-add-HUTOS-run-queue-wait-latency-monitor.patch)
+
+```bash
+cd linux   # v7.3-rc5 tree
+git am /path/to/linux-config/patches/0001-sched-add-HUTOS-run-queue-wait-latency-monitor.patch
+cp /path/to/linux-config/hutos_defconfig .config
+make olddefconfig
+make -j"$(nproc)" bzImage
+```
+
+Enable at runtime:
+
+```text
+sysctl kernel.hutos_sched_lat=1
+cat /proc/hutos_sched
+```
+
+Or boot with `hutos_sched_lat=1`.
